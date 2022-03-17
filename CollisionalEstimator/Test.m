@@ -1,4 +1,8 @@
-function CollisionalEstimatorWater(radius, E, N)
+radius = 15;
+E = 1;
+N = 1E6;
+
+
 n = 10000;
 dividerVal = 10;
 delta = 0.01;
@@ -194,6 +198,7 @@ for k = 1 : N
             break
         end
         DFromOrigin(k,irr-1) = sqrt(xcoordinateParticle(k,irr)^2 + ycoordinateParticle(k,irr)^2 + zcoordinateParticle(k,irr)^2);
+        DChecking = DFromOrigin(k,irr-1);
         LoopNumber = LoopNumber + 1;
         %Energy of particle after the collision
         EnergyInteraction(k,irr) = IntermediateE;
@@ -286,9 +291,6 @@ legend('Data', PathMean, PathUpperBound, PathLowerBound)
 ax = gca; 
 ax.FontSize = 16;
 
-
-
-
 figure(5)
 edges = [0 :0.25:radius];
 h = histogram(DFromOrigin,edges);
@@ -308,25 +310,9 @@ for k = 2:C
 end
 A(1) = [];
 f = fit(A,B,'poly5')
-A2(1) = [];
-plot(A2,B2,'.', 'MarkerSize', 10)
-xlabel('radius (cm)')
-ylabel('Particle Fluence (photon \cdot cm^{-2})')
-ylabel('Particle Fluence (photon \cdot s^{-1})')
-title('Absolute Photon Fluence 10^6 Bq')
-ax = gca;
-ax.FontSize = 16;
-grid on
-grid minor
-
-figure(6)
 plot(f,A,B, 'o')
 xlabel('Radius (cm)')
 ylabel('Particle Fluence (photons \cdot cm^2)')
 title('Fluence Distribution (r, photons \cdot cm^{-2})')
 ax = gca; 
 ax.FontSize = 16;
-
-
-
-end
